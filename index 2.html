@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101321">
+<title>NEON TAP — Clicker</title>
+<style>
+:root{color-scheme:dark;--bg:#0c0e19;--panel:#171a2b;--panel2:#20243a;--text:#f5f6ff;--muted:#9298b5;--cyan:#61e7f5;--pink:#ff65bd;--gold:#ffd36b;--line:#ffffff12}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#34305c 0,#15182a 38%,var(--bg) 75%);color:var(--text);font:16px/1.4 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button{font:inherit;color:inherit}.app{max-width:1080px;margin:auto;padding:22px 18px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.brand{font-weight:900;letter-spacing:.14em;font-size:18px}.brand span{color:var(--cyan)}.tag{font-size:11px;color:var(--muted);letter-spacing:.12em;border:1px solid var(--line);padding:7px 10px;border-radius:99px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}.stat,.panel{background:linear-gradient(145deg,#1b1f34ee,#141727ee);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px #0002}.stat{padding:15px 17px}.stat small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em}.stat strong{display:block;font-size:clamp(19px,4vw,27px);margin-top:5px;font-variant-numeric:tabular-nums}
+.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:18px}.play{padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:490px;position:relative;overflow:hidden}.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.play h1{font-size:clamp(25px,5vw,38px);margin:8px 0 0;text-align:center}.subtitle{color:var(--muted);font-size:13px;margin:5px 0 24px;text-align:center}
+.orb-wrap{width:min(62vw,260px);aspect-ratio:1;display:grid;place-items:center;position:relative;margin:5px auto 20px}.orb-glow{position:absolute;inset:8%;border-radius:50%;background:var(--cyan);filter:blur(42px);opacity:.2;transition:.15s}.orb{width:78%;height:78%;border-radius:50%;border:1px solid #b4faff88;background:radial-gradient(circle at 34% 27%,#ffffff 0,#a8faff 4%,#4bd9ec 20%,#2875a9 53%,#29215b 78%,#131528 100%);box-shadow:inset -16px -20px 35px #05091eaa,inset 8px 8px 20px #ffffff80,0 0 25px #57e9f588,0 0 80px #45cbe944;cursor:pointer;position:relative;transition:transform .08s,filter .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.orb:before,.orb:after{content:"";position:absolute;border-radius:50%;background:#fff;filter:blur(1px);opacity:.8}.orb:before{width:17%;height:7%;top:19%;left:24%;transform:rotate(-35deg)}.orb:after{width:7%;height:7%;top:32%;left:18%;opacity:.45}.orb:active{transform:scale(.93);filter:brightness(1.2)}.orb-ring{position:absolute;inset:0;border:1px solid #65e9f544;border-radius:50%;animation:spin 16s linear infinite}.orb-ring:before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--pink);box-shadow:0 0 15px var(--pink);top:9%;left:16%}@keyframes spin{to{transform:rotate(360deg)}}.tap-hint{font-size:12px;color:var(--muted)}.tap-hint b{color:var(--cyan)}.float{position:absolute;pointer-events:none;color:#fff;font-weight:900;font-size:24px;text-shadow:0 2px 12px #36d8ff;animation:float .75s ease-out forwards}@keyframes float{to{transform:translateY(-90px) scale(1.2);opacity:0}}
+.side{display:flex;flex-direction:column;gap:18px}.panel{padding:19px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.panel h2{font-size:15px;margin:0;letter-spacing:.02em}.panel-head small{color:var(--muted);font-size:11px}.upgrade-list{display:grid;gap:9px}.upgrade{width:100%;border:1px solid var(--line);background:#ffffff08;border-radius:14px;padding:12px;display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;text-align:left;cursor:pointer;transition:.15s}.upgrade:hover:not(:disabled){border-color:#61e7f566;background:#61e7f510;transform:translateY(-1px)}.upgrade:disabled{opacity:.42;cursor:not-allowed}.uicon{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:#61e7f51a;font-size:19px}.uname{font-size:13px;font-weight:800}.udesc{font-size:11px;color:var(--muted);margin-top:2px}.ucost{text-align:right;font-size:12px;font-weight:800;color:var(--gold);white-space:nowrap}.ucost small{display:block;color:var(--muted);font-size:10px;font-weight:500}.progress{height:7px;background:#ffffff12;border-radius:99px;overflow:hidden;margin-top:12px}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:99px;transition:width .25s}.achievements{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.achievement{border:1px solid var(--line);border-radius:12px;padding:10px 7px;text-align:center;background:#ffffff06;opacity:.38}.achievement.done{opacity:1;border-color:#ffd36b66;background:#ffd36b0d}.achievement span{font-size:20px;display:block}.achievement b{font-size:10px;display:block;margin-top:4px}.achievement small{font-size:9px;color:var(--muted)}
+.footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:17px;color:var(--muted);font-size:11px}.ghost{border:1px solid var(--line);background:#ffffff08;border-radius:10px;padding:8px 11px;font-size:11px;cursor:pointer}.ghost:hover{border-color:#ff65bd88;color:#ff9bd2}.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:#252a43;border:1px solid #ffffff20;padding:11px 16px;border-radius:12px;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 8px 30px #0006;font-size:13px;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:720px){.app{padding:15px 13px calc(25px + env(safe-area-inset-bottom))}.top{margin-bottom:15px}.stats{gap:8px}.stat{padding:12px 10px;border-radius:15px}.stat small{font-size:9px}.layout{grid-template-columns:1fr;gap:13px}.play{min-height:410px;padding:20px 14px}.orb-wrap{width:min(58vw,225px);margin:2px auto 17px}.side{gap:13px}.panel{padding:16px;border-radius:17px}.footer{margin-top:13px}.tag{font-size:9px}.achievements{gap:6px}}
+@media(max-width:360px){.stat strong{font-size:18px}.play{min-height:380px}.upgrade{grid-template-columns:34px 1fr auto;padding:10px}.uicon{width:34px;height:34px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><div class="brand">NEON<span>_</span>TAP</div><div class="tag">IDLE CLICKER · v1.0</div></header>
+  <section class="stats">
+    <div class="stat"><small>Энергия</small><strong id="energy">0</strong></div>
+    <div class="stat"><small>За клик</small><strong id="perClick">1</strong></div>
+    <div class="stat"><small>В секунду</small><strong id="perSec">0</strong></div>
+  </section>
+  <main class="layout">
+    <section class="panel play">
+      <div class="eyebrow">ядро системы активно</div><h1>Заряжай ядро</h1><p class="subtitle">Каждое нажатие приближает тебя к новой энергии</p>
+      <div class="orb-wrap" id="orbWrap"><div class="orb-glow" id="glow"></div><div class="orb-ring"></div><button class="orb" id="tap" aria-label="Нажми, чтобы получить энергию"></button></div>
+      <div class="tap-hint">Нажми на ядро · <b>+<span id="tapValue">1</span> энергии</b></div>
+    </section>
+    <aside class="side">
+      <section class="panel">
+        <div class="panel-head"><h2>УЛУЧШЕНИЯ</h2><small>усиль производство</small></div>
+        <div class="upgrade-list" id="upgrades"></div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h2>ДОСТИЖЕНИЯ</h2><small id="achievementCount">0 / 6</small></div>
+        <div class="achievements" id="achievements"></div>
+        <div class="progress"><i id="progressBar"></i></div>
+      </section>
+    </aside>
+  </main>
+  <footer class="footer"><span>Прогресс сохраняется автоматически</span><button class="ghost" id="reset">Сбросить игру</button></footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const fmt=n=>{if(n<1000)return Math.floor(n).toLocaleString('ru-RU');const units=['K','M','B','T'];let i=-1;do{n/=1000;i++}while(n>=1000&&i<units.length-1);return n.toFixed(n<10?1:0)+units[i]};
+const defs=[
+ {id:'cursor',name:'Автокликер',desc:'+1 энергия в секунду',icon:'🛰️',base:15,growth:1.16,rate:1},
+ {id:'drone',name:'Дрон-сборщик',desc:'+5 энергии в секунду',icon:'🤖',base:100,growth:1.17,rate:5},
+ {id:'reactor',name:'Мини-реактор',desc:'+25 энергии в секунду',icon:'⚡',base:650,growth:1.18,rate:25},
+ {id:'quantum',name:'Квантовый узел',desc:'+120 энергии в секунду',icon:'💠',base:4000,growth:1.19,rate:120}
+];
+const medals=[
+ {id:'first',icon:'✨',name:'Первый шаг',desc:'1 энергии',test:s=>s.total>=1},
+ {id:'hundred',icon:'💯',name:'Разгон',desc:'100 энергии',test:s=>s.total>=100},
+ {id:'thousand',icon:'🌟',name:'Тысячник',desc:'1 000 энергии',test:s=>s.total>=1000},
+ {id:'tenk',icon:'🚀',name:'На орбите',desc:'10 000 энергии',test:s=>s.total>=10000},
+ {id:'builder',icon:'🏗️',name:'Инженер',desc:'Купить 10 улучшений',test:s=>s.bought>=10},
+ {id:'million',icon:'👑',name:'Энергетический магнат',desc:'1 млн энергии',test:s=>s.total>=1e6}
+];
+const fresh=()=>({energy:0,total:0,click:1,levels:{cursor:0,drone:0,reactor:0,quantum:0},bought:0,unlocked:[]});
+let state=fresh();try{const saved=JSON.parse(localStorage.getItem('neonTapSave'));if(saved&&typeof saved.energy==='number'&&saved.levels)state={...fresh(),...saved,levels:{...fresh().levels,...saved.levels}}}catch(e){}
+let last=Date.now(),toastTimer;
+const rate=()=>defs.reduce((a,d)=>a+d.rate*state.levels[d.id],0);
+const cost=d=>Math.floor(d.base*Math.pow(d.growth,state.levels[d.id]));
+function save(){localStorage.setItem('neonTapSave',JSON.stringify(state))}
+function notify(t){$('toast').textContent=t;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function render(){
+ $('energy').textContent=fmt(state.energy);$('perClick').textContent=fmt(state.click);$('perSec').textContent=fmt(rate());$('tapValue').textContent=fmt(state.click);
+ $('upgrades').innerHTML=defs.map(d=>{let c=cost(d),lv=state.levels[d.id];return `<button class="upgrade" data-id="${d.id}" ${state.energy<c?'disabled':''}><span class="uicon">${d.icon}</span><span><span class="uname">${d.name} <span style="color:var(--muted);font-weight:500">×${lv}</span></span><span class="udesc">${d.desc}</span></span><span class="ucost">${fmt(c)} ⚡<small>КУПИТЬ</small></span></button>`}).join('');
+ $('achievements').innerHTML=medals.map(m=>`<div class="achievement ${state.unlocked.includes(m.id)?'done':''}"><span>${m.icon}</span><b>${m.name}</b><small>${m.desc}</small></div>`).join('');
+ $('achievementCount').textContent=`${state.unlocked.length} / ${medals.length}`;$('progressBar').style.width=(state.unlocked.length/medals.length*100)+'%';
+}
+function checkAchievements(){for(const m of medals){if(!state.unlocked.includes(m.id)&&m.test(state)){state.unlocked.push(m.id);notify('Достижение: '+m.name+'!')}}}
+$('tap').addEventListener('pointerdown',e=>{state.energy+=state.click;state.total+=state.click;const f=document.createElement('div');f.className='float';f.textContent='+'+fmt(state.click);const r=$('orbWrap').getBoundingClientRect();f.style.left=(e.clientX-r.left-12)+'px';f.style.top=(e.clientY-r.top-5)+'px';$('orbWrap').appendChild(f);setTimeout(()=>f.remove(),800);$('glow').style.opacity='.42';setTimeout(()=>$('glow').style.opacity='.2',100);checkAchievements();render();save()});
+$('upgrades').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(!b)return;const d=defs.find(x=>x.id===b.dataset.id),c=cost(d);if(state.energy<c)return;state.energy-=c;state.levels[d.id]++;state.bought++;checkAchievements();render();save();notify(d.name+' улучшен!')});
+$('reset').addEventListener('click',()=>{if(confirm('Точно сбросить весь прогресс?')){state=fresh();save();render();notify('Игра началась заново')}})
+setInterval(()=>{const now=Date.now(),dt=Math.min((now-last)/1000,2);last=now;const gain=rate()*dt;if(gain>0){state.energy+=gain;state.total+=gain;checkAchievements();render()}save()},1000);
+render();
+})();
+</script>
+</body>
+</html>
